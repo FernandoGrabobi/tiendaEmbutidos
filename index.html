@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Embutidos</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Embutidos del Sabor</h1>
+        <nav>
+            <a href="#">Inicio</a>
+            <a href="#">Productos</a>
+            <a href="#" id="login-btn">Iniciar Sesión</a>
+            <div class="cart-icon">
+                🛒 <span id="cart-count">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="filters">
+            <label for="filter">Ordenar por:</label>
+            <select id="filter">
+                <option value="mas-vendidos">Más vendidos</option>
+                <option value="alpha-asc">Alfabéticamente, A-Z</option>
+                <option value="alpha-desc">Alfabéticamente, Z-A</option>
+                <option value="price-desc">Precio: de mayor a menor</option>
+                <option value="price-asc">Precio: de menor a mayor</option>
+            </select>
+        </section>
+
+        <section id="product-list" class="product-grid">
+            <!-- Los productos se cargarán aquí con JavaScript -->
+        </section>
+    </main>
+
+    <!-- Modal para el Carrito de Compras -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Tu Carrito</h2>
+            <div id="cart-items"></div>
+            <p>Total: $<span id="cart-total">0.00</span></p>
+            <button id="checkout-btn">Pagar</button>
+        </div>
+    </div>
+    
+    <!-- Modal para Iniciar Sesión -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-login-button">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form id="login-form">
+                <input type="email" placeholder="Correo electrónico" required>
+                <input type="password" placeholder="Contraseña" required>
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="js/app.js"></script>
+</body>
+</html>
