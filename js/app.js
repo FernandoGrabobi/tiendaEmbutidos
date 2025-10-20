@@ -1,25 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- DATOS DE EJEMPLO ---
-    // En una aplicación real, esto vendría de una base de datos.
-    const products = [
-        { id: 1, name: 'Jamón Ibérico', price: 150.00, image: './assets/jamon.jpg', sales: 50 },
-        { id: 2, name: 'Chorizo Riojano', price: 25.50, image: './assets/chorizo.jpg', sales: 80 },
-        { id: 3, name: 'Salchichón de Vic', price: 30.00, image: './assets/salchichon.jpg', sales: 65 },
-        { id: 4, name: 'Lomo Embuchado', price: 55.75, image: './assets/lomo.jpg', sales: 40 }
+     const products = [
+        // Jamones
+        { id: 1, name: 'Jamón Ibérico', price: 150.00, image: './assets/jamon.jpg', sales: 50, category: 'jamon' },
+        { id: 6, name: 'Paleta Ibérica', price: 75.00, image: './assets/paletaiberica.jpg', sales: 90, category: 'jamon' },
+        
+        // Chorizos
+        { id: 2, name: 'Chorizo Riojano', price: 25.50, image: './assets/chorizo.jpg', sales: 80, category: 'chorizo' },
+        { id: 7, name: 'Chorizo de Cantimpalo', price: 28.00, image: './assets/Chorizos_cantimpalos.jpg', sales: 70, category: 'chorizo' },
+
+        // Salchichones (caen en categoría chorizo para el ejemplo)
+        { id: 3, name: 'Salchichón de Vic', price: 30.00, image: './assets/salchichon.jpg', sales: 65, category: 'chorizo' },
+
+        // Lomos (caen en categoría otros para el ejemplo)
+        { id: 4, name: 'Lomo Embuchado', price: 55.75, image: './assets/lomo.jpg', sales: 40, category: 'otros' },
+        
+        // Quesos
+        { id: 5, name: 'Queso Manchego', price: 45.00, image: './assets/queso_manchego.jpg', sales: 110, category: 'queso' },
     ];
 
     const productList = document.getElementById('product-list');
-    const filter = document.getElementById('filter');
+    const filterSelect = document.getElementById('filter');
     const cartCount = document.getElementById('cart-count');
+    const navLinks = document.querySelectorAll('nav a[data-category]');
     
     let cart = [];
+    let currentProducts = [...products];
 
     // --- FUNCIONES ---
-
-    // Función para mostrar los productos en la página
     function renderProducts(productsToRender) {
-        productList.innerHTML = ''; // Limpiar la lista de productos
+        productList.innerHTML = '';
         productsToRender.forEach(product => {
             const productCard = document.createElement('div');
             productCard.className = 'product-card';
@@ -33,12 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Función para actualizar el contador del carrito
     function updateCartCount() {
         cartCount.textContent = cart.reduce((acc, item) => acc + item.quantity, 0);
     }
     
-    // Función para añadir productos al carrito. [4]
     function addToCart(productId) {
         const product = products.find(p => p.id === productId);
         const cartItem = cart.find(item => item.id === productId);
@@ -51,34 +59,31 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCartCount();
     }
     
-    // Función para filtrar y ordenar los productos
-    function filterAndSortProducts() {
-        let sortedProducts = [...products];
-        const filterValue = filter.value;
+    function applySorting() {
+        let sortedProducts = [...currentProducts];
+        const filterValue = filterSelect.value;
 
         switch (filterValue) {
-            case 'mas-vendidos':
-                sortedProducts.sort((a, b) => b.sales - a.sales);
-                break;
-            case 'alpha-asc':
-                sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
-                break;
-            case 'alpha-desc':
-                sortedProducts.sort((a, b) => b.name.localeCompare(a.name));
-                break;
-            case 'price-asc':
-                sortedProducts.sort((a, b) => a.price - b.price);
-                break;
-            case 'price-desc':
-                sortedProducts.sort((a, b) => b.price - a.price);
-                break;
+            case 'mas-vendidos': sortedProducts.sort((a, b) => b.sales - a.sales); break;
+            case 'alpha-asc': sortedProducts.sort((a, b) => a.name.localeCompare(b.name)); break;
+            case 'alpha-desc': sortedProducts.sort((a, b) => b.name.localeCompare(a.name)); break;
+            case 'price-asc': sortedProducts.sort((a, b) => a.price - b.price); break;
+            case 'price-desc': sortedProducts.sort((a, b) => b.price - a.price); break;
         }
         renderProducts(sortedProducts);
     }
+    
+    function filterByCategory(category) {
+        if (category === 'all') {
+            currentProducts = [...products];
+        } else {
+            currentProducts = products.filter(product => product.category === category);
+        }
+        applySorting();
+    }
+
 
     // --- EVENT LISTENERS ---
-    
-    // Añadir al carrito
     productList.addEventListener('click', (e) => {
         if (e.target.classList.contains('add-to-cart-btn')) {
             const productId = parseInt(e.target.getAttribute('data-id'));
@@ -86,36 +91,77 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Cambiar filtro
-    filter.addEventListener('change', filterAndSortProducts);
+    filterSelect.addEventListener('change', applySorting);
 
-    // Carga inicial de productos
-    filterAndSortProducts();
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const category = e.target.dataset.category;
+            if(category) { // Asegura que solo los links con categoría filtren
+                 filterByCategory(category);
+            }
+        });
+    });
+
+    // --- LÓGICA DEL MENÚ MÓVIL ---
+    const mainNav = document.getElementById('main-nav');
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const closeNavBtn = document.querySelector('.close-nav-btn');
+    const overlay = document.getElementById('overlay');
+    const dropBtn = document.querySelector('.drop-btn');
     
-    // --- LÓGICA DEL MODAL (VENTANAS EMERGENTES) ---
+    function openNav() {
+        mainNav.classList.add('nav-active');
+        overlay.classList.add('active');
+    }
+
+    function closeNav() {
+        mainNav.classList.remove('nav-active');
+        overlay.classList.remove('active');
+    }
+
+    hamburgerMenu.addEventListener('click', openNav);
+    closeNavBtn.addEventListener('click', closeNav);
+    overlay.addEventListener('click', closeNav);
+
+    dropBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        this.parentElement.classList.toggle('submenu-active');
+    });
+
+    mainNav.querySelectorAll('a').forEach(link => {
+        if (!link.classList.contains('drop-btn')) {
+            link.addEventListener('click', closeNav);
+        }
+    });
     
-    // Carrito
+    
+    // --- LÓGICA DEL MODAL ---
     const cartModal = document.getElementById('cart-modal');
+    const loginModal = document.getElementById('login-modal');
     const cartIcon = document.querySelector('.cart-icon');
     const closeButton = document.querySelector('.close-button');
+    const desktopLoginBtn = document.getElementById('desktop-login-btn');
+    const mobileLoginBtn = document.getElementById('mobile-login-btn');
+    const closeLoginButton = document.querySelector('.close-login-button');
     
     cartIcon.onclick = () => cartModal.style.display = 'block';
     closeButton.onclick = () => cartModal.style.display = 'none';
 
-    // Login
-    const loginModal = document.getElementById('login-modal');
-    const loginBtn = document.getElementById('login-btn');
-    const closeLoginButton = document.querySelector('.close-login-button');
+    function openLoginModal(e) {
+        e.preventDefault();
+        loginModal.style.display = 'block';
+    }
 
-    loginBtn.onclick = () => loginModal.style.display = 'block';
+    desktopLoginBtn.onclick = openLoginModal;
+    mobileLoginBtn.onclick = openLoginModal;
     closeLoginButton.onclick = () => loginModal.style.display = 'none';
     
     window.onclick = (event) => {
-        if (event.target == cartModal) {
-            cartModal.style.display = 'none';
-        }
-        if (event.target == loginModal) {
-            loginModal.style.display = 'none';
-        }
+        if (event.target == cartModal) cartModal.style.display = "none";
+        if (event.target == loginModal) loginModal.style.display = "none";
     }
+
+    // Carga inicial de productos
+    filterByCategory('all');
 });
