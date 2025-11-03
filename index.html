@@ -15,9 +15,7 @@
             </div>
             
             <nav id="main-nav">
-                <div class="nav-header">
-                    <button class="close-nav-btn">&times;</button>
-                </div>
+                <div class="nav-header"><button class="close-nav-btn">&times;</button></div>
                 <ul class="nav-links">
                     <li><a href="#" data-category="all">Inicio</a></li>
                     <li><a href="#" data-category="jamon">Jamón</a></li>
@@ -31,80 +29,59 @@
                     </li>
                 </ul>
                 <div class="nav-footer">
-                    <a href="#" id="mobile-login-btn" class="nav-login-link">
-                        <span>👤</span> Iniciar Sesión
-                    </a>
-                    <div class="social-icons">
-                        <a href="#">F</a> <a href="#">T</a> <a href="#">I</a> <a href="#">Y</a>
+                    <div id="mobile-user-actions">
+                        <a href="#" id="mobile-login-btn" class="nav-login-link"><span>👤</span> Iniciar Sesión</a>
+                        <a href="#" id="mobile-logout-btn" class="nav-login-link hidden"><span>👤</span> Cerrar Sesión</a>
                     </div>
+                    <div class="social-icons"><a href="#">F</a><a href="#">T</a><a href="#">I</a><a href="#">Y</a></div>
                 </div>
             </nav>
 
             <div class="header-right">
-                <a href="#" id="desktop-login-btn" class="login-link">Iniciar Sesión</a>
-                <button class="hamburger-menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                <div class="cart-icon">
-                    🛒 <span id="cart-count">0</span>
+                <div id="desktop-user-actions">
+                    <div id="welcome-message" class="welcome-message hidden"></div>
+                    <a href="#" id="desktop-login-btn" class="login-link">Iniciar Sesión</a>
+                    <a href="#" id="desktop-logout-btn" class="login-link hidden">Cerrar Sesión</a>
                 </div>
+                <button class="hamburger-menu"><span></span><span></span><span></span></button>
+                <div class="cart-icon">🛒 <span id="cart-count">0</span></div>
             </div>
         </div>
     </header>
 
     <div id="overlay"></div>
 
-    <section class="hero-banner">
-        <img src="./assets/banner.jpg" alt="Selección de embutidos ibéricos">
-    </section>
-
-    <section class="section-title">
-        <div class="container">
-            <h2>Nuestros Productos</h2>
-        </div>
-    </section>
-
-    <main>
-        <div class="container">
-            <section class="filters">
-                <label for="filter">Ordenar por:</label>
-                <select id="filter">
-                    <option value="mas-vendidos">Más vendidos</option>
-                    <option value="alpha-asc">Alfabéticamente, A-Z</option>
-                    <option value="alpha-desc">Alfabéticamente, Z-A</option>
-                    <option value="price-desc">Precio: de mayor a menor</option>
-                    <option value="price-asc">Precio: de menor a mayor</option>
-                </select>
-            </section>
-
-            <section id="product-list" class="product-grid">
-                <!-- Los productos se cargarán aquí con JavaScript -->
-            </section>
-        </div>
-    </main>
+    <section class="hero-banner"><img src="./assets/banner.jpg" alt="Selección de embutidos ibéricos"></section>
+    <section class="section-title"><div class="container"><h2>Nuestros Productos</h2></div></section>
+    <main><div class="container">
+        <section class="filters"><label for="filter">Ordenar por:</label><select id="filter"><option value="mas-vendidos">Más vendidos</option><option value="alpha-asc">Alfabéticamente, A-Z</option><option value="alpha-desc">Alfabéticamente, Z-A</option><option value="price-desc">Precio: de mayor a menor</option><option value="price-asc">Precio: de menor a mayor</option></select></section>
+        <section id="product-list" class="product-grid"></section>
+    </div></main>
     
-    <!-- Modal para el Carrito de Compras -->
-    <div id="cart-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>Tu Carrito</h2>
-            <div id="cart-items"></div>
-            <p>Total: $<span id="cart-total">0.00</span></p>
-            <button id="checkout-btn">Pagar</button>
-        </div>
-    </div>
+    <div id="cart-modal" class="modal"><div class="modal-content"><span class="close-button">&times;</span><h2>Tu Carrito</h2><div id="cart-items"></div><p>Total: $<span id="cart-total">0.00</span></p><button id="checkout-btn">Pagar</button></div></div>
     
-    <!-- Modal para Iniciar Sesión -->
     <div id="login-modal" class="modal">
         <div class="modal-content">
             <span class="close-login-button">&times;</span>
             <h2>Iniciar Sesión</h2>
             <form id="login-form">
-                <input type="email" placeholder="Correo electrónico" required>
-                <input type="password" placeholder="Contraseña" required>
+                <input type="email" id="email-input" placeholder="Correo electrónico" required>
+                <input type="password" id="password-input" placeholder="Contraseña" required>
                 <button type="submit">Entrar</button>
+                <p class="form-link">¿No tienes cuenta? <a href="#" id="show-register-link">Regístrate</a></p>
+            </form>
+        </div>
+    </div>
+    
+    <div id="register-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-register-button">&times;</span>
+            <h2>Crear Cuenta</h2>
+            <form id="register-form">
+                <input type="email" id="register-email" placeholder="Correo electrónico" required>
+                <input type="password" id="register-password" placeholder="Contraseña" required>
+                <button type="submit">Registrarse</button>
+                <p class="form-link">¿Ya tienes cuenta? <a href="#" id="show-login-link">Inicia sesión</a></p>
             </form>
         </div>
     </div>
