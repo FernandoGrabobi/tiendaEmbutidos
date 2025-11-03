@@ -58,8 +58,37 @@
         <section id="product-list" class="product-grid"></section>
     </div></main>
     
-    <div id="cart-modal" class="modal"><div class="modal-content"><span class="close-button">&times;</span><h2>Tu Carrito</h2><div id="cart-items"></div><p>Total: $<span id="cart-total">0.00</span></p><button id="checkout-btn">Pagar</button></div></div>
-    
+
+    <!-- ======================================================= -->
+    <!-- ==== INICIO: MODAL DEL CARRITO                     ==== -->
+    <!-- ======================================================= -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <div class="cart-header">
+                <h2>Tu Carrito</h2>
+                <span class="close-button">&times;</span>
+            </div>
+            
+            <!-- El cuerpo del carrito donde se listarán los productos -->
+            <div id="cart-items" class="cart-body">
+                <!-- Los productos se añadirán aquí con JavaScript -->
+            </div>
+
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <strong>Total:</strong>
+                    <span id="cart-total-price">$0.00</span>
+                </div>
+                <button id="checkout-btn" class="checkout-button">Pagar</button>
+            </div>
+        </div>
+    </div>
+    <!-- ===================================================== -->
+    <!-- ==== FIN: MODAL DEL CARRITO                      ==== -->
+    <!-- ===================================================== -->
+
+
+
     <div id="login-modal" class="modal">
         <div class="modal-content">
             <span class="close-login-button">&times;</span>

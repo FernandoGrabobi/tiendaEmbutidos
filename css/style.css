@@ -46,6 +46,107 @@ form button { background-color: #333; color: white; border: 1px solid #333; padd
 .form-link { text-align: center; margin-top: 1rem; font-size: 0.9rem; color: #555; }
 .form-link a { color: #333; font-weight: bold; cursor: pointer; text-decoration: none; }
 
+
+/* =================================
+   ESTILOS PARA EL CARRITO DE COMPRAS
+   ================================= */
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    height: 70vh; /* Ocupa el 70% de la altura de la pantalla */
+    max-height: 500px;
+}
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+}
+.cart-header h2 { margin: 0; }
+
+.cart-body {
+    flex-grow: 1; 
+    overflow-y: auto;
+    padding: 1rem 0;
+}
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.cart-item-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 15px;
+}
+.cart-item-details {
+    flex-grow: 1;
+}
+.cart-item-details h4 { margin: 0 0 5px 0; font-size: 1rem; }
+.cart-item-details p { margin: 0; color: #888; }
+
+.cart-item-actions {
+    display: flex;
+    align-items: center;
+}
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 15px;
+}
+.quantity-controls button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 1.2rem;
+}
+.quantity-controls span {
+    padding: 0 10px;
+    font-size: 1rem;
+}
+.remove-item-btn {
+    background: none;
+    border: none;
+    color: #cc0000;
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 0;
+}
+.cart-empty-message {
+    text-align: center;
+    padding: 3rem 0;
+    color: #888;
+}
+
+.cart-footer {
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+}
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+.checkout-button {
+    background-color: #28a745;
+    color: white;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
 /* =======================================================
    ESTILOS RESPONSIVE
    ======================================================= */
