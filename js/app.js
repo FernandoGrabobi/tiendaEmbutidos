@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const products = [
         // Jamones
         { id: 1, name: 'Jamón Ibérico', price: 150.00, image: './assets/jamon.jpg', sales: 50, category: 'jamon' },
-        { id: 6, name: 'Paleta Ibérica', price: 75.00, image: './assets/paletaiberica.jpg', sales: 90, category: 'jamon' },
+        { id: 6, name: 'Paleta Ibérica', price: 75.00, image: './assets/paletaIberica.jpg', sales: 90, category: 'jamon' },
         
         // Chorizos
         { id: 2, name: 'Chorizo Riojano', price: 25.50, image: './assets/chorizo.jpg', sales: 80, category: 'chorizo' },
